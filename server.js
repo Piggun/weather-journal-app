@@ -28,3 +28,21 @@ app.listen(port, () =>{
     console.log('Server running');
     console.log(`Running on localhost: ${port}`);
 })
+
+
+// GET route
+app.get('/data', function(req, res) {
+    console.log(projectData);
+})
+
+// POST route
+app.post('/add', function(req, res) {
+    let temperature = req.body.temperature;
+    let date = req.body.date;
+    let userResponse = req.body.userResponse;
+
+    projectData.temperature = temperature;
+    projectData.date = date;
+    projectData.userResponse = userResponse;
+    console.log(projectData);
+})

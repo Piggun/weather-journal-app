@@ -23,7 +23,6 @@ const postData = async ( url = '', data = {})=>{
 
       try {
         const newData = await response.json();
-        console.log(newData);
         return newData;
       }catch(error) {
       console.log("error", error);
@@ -37,6 +36,8 @@ const postData = async ( url = '', data = {})=>{
     // Transform into JSON
     const allData = await request.json()
     console.log(allData)
+    return allData;
+    // postData('add', {temperature : allData.main.temp, date: newDate, userResponse : feelingsArea.value})
     }
     catch(error) {
       console.log("error", error);
@@ -48,6 +49,9 @@ const postData = async ( url = '', data = {})=>{
 
 
   generateBtn.addEventListener('click', function(){
-      postData('/add', {userResponse : feelingsArea.value});
-      retrieveData(baseUrl+feelingsArea.value+apiKey);
+      // postData('/add', {userResponse : feelingsArea.value})
+      retrieveData(baseUrl+feelingsArea.value+apiKey)
+      .then(function(allData){
+        postData('add', {temperature : allData.main.temp, date: newDate, userResponse : feelingsArea.value})
+      })
   })

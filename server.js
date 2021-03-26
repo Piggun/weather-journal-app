@@ -35,14 +35,23 @@ app.get('/data', function(req, res) {
     console.log(projectData);
 })
 
+app.get('/all', function(req, res) {
+    res.send(projectData)
+    console.log(projectData)
+})
+
 // POST route
 app.post('/add', function(req, res) {
     let temperature = req.body.temperature;
     let date = req.body.date;
     let userResponse = req.body.userResponse;
+    let city = req.body.name;
+    let country = req.body.country;
 
     projectData.temperature = temperature;
     projectData.date = date;
     projectData.userResponse = userResponse;
+    projectData.city = city;
+    projectData.country = country;
     console.log(projectData);
 })

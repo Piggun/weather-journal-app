@@ -31,10 +31,6 @@ app.listen(port, () =>{
 
 
 // GET route
-app.get('/data', function(req, res) {
-    console.log(projectData);
-})
-
 app.get('/all', function(req, res) {
     res.send(projectData)
     console.log(projectData)

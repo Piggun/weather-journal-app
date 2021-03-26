@@ -21,15 +21,15 @@ const postData = async ( url = '', data = {})=>{
       credentials: 'same-origin',
       headers: {
           'Content-Type': 'application/json',
-      },
-     // Body data type must match "Content-Type" header        
+      },     
       body: JSON.stringify(data),
     });
 
       try {
         const newData = await response.json();
         return newData;
-      }catch(error) {
+      }
+      catch(error) {
       console.log("error", error);
       }
 }
@@ -67,7 +67,13 @@ const updateUI = async () => {
 generateBtn.addEventListener('click', function(){
     retrieveData(baseUrl+zipArea.value+apiKey)
     .then(function(allData){
-      postData('/add', {temperature : allData.main.temp, date: newDate, userResponse : feelingsArea.value, name: allData.name, country : allData.sys.country})
+      postData('/add', {
+        temperature : allData.main.temp,
+        date: newDate,
+        userResponse : feelingsArea.value,
+        name: allData.name,
+        country : allData.sys.country
+      })
       updateUI();
     })
 })

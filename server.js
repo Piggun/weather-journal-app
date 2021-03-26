@@ -49,5 +49,4 @@ app.post('/add', function(req, res) {
     projectData.userResponse = userResponse;
     projectData.city = city;
     projectData.country = country;
-    console.log(projectData);
 })

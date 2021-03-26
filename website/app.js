@@ -9,6 +9,7 @@ let tempArea = document.getElementById('temp');
 let contentArea = document.getElementById('content');
 let cityArea = document.getElementById('city');
 let countryArea = document.getElementById('country');
+let countryCodeArea = document.getElementById('country-box');
 
 
 // Create a new date instance dynamically with JS
@@ -24,7 +25,6 @@ const postData = async ( url = '', data = {})=>{
       },     
       body: JSON.stringify(data),
     });
-
       try {
         const newData = await response.json();
         return newData;
@@ -35,7 +35,7 @@ const postData = async ( url = '', data = {})=>{
 }
 
 
-const retrieveData = async (url='') =>{ 
+const retrieveData = async (url='') => { 
   const request = await fetch(url);
   try {
   const allData = await request.json()
@@ -65,15 +65,15 @@ const updateUI = async () => {
 
 
 generateBtn.addEventListener('click', function(){
-    retrieveData(baseUrl+zipArea.value+apiKey)
+    retrieveData(baseUrl+zipArea.value+','+countryCodeArea.value+apiKey)  // Fetches data from API
     .then(function(allData){
-      postData('/add', {
+      postData('/add', {                          // Posts data fecthed from API to the server
         temperature : allData.main.temp,
         date: newDate,
         userResponse : feelingsArea.value,
         name: allData.name,
         country : allData.sys.country
       })
-      updateUI();
+      updateUI();                 // Fetches data posted to the server and uses it to update the page
     })
 })

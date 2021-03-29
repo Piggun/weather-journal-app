@@ -1,6 +1,6 @@
 /* Global Variables */
 const baseUrl = 'http://api.openweathermap.org/data/2.5/weather?zip=';
-const apiKey = '&appid=e719b3cfc9bc0dc764647927b3ec6a15';
+const apiKey = '&appid=e719b3cfc9bc0dc764647927b3ec6a15&units=metric';    // Uses metric system
 const generateBtn = document.getElementById('generate');
 let feelingsArea = document.getElementById('feelings');
 let zipArea = document.getElementById('zip');
@@ -14,7 +14,7 @@ let countryCodeArea = document.getElementById('country-box');
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getMonth()+1+'.'+ d.getDate()+'.'+ d.getFullYear();
 
 const postData = async ( url = '', data = {})=>{
       const response = await fetch(url, {
@@ -55,7 +55,7 @@ const updateUI = async () => {
     dateArea.innerHTML = 'Date : ' + allData.date;
     countryArea.innerHTML = 'Country : ' + allData.country;
     cityArea.innerHTML = 'City : ' + allData.city;
-    tempArea.innerHTML = 'Temperature : ' + (allData.temperature - 273.15).toFixed(2) + '°C';  // Converts from Kelvin to Celsius and rounds at 2 decimal points
+    tempArea.innerHTML = 'Temperature : ' + allData.temperature + '°C';
     contentArea.innerHTML = 'User Response : ' + allData.userResponse;
   }
   catch(error) {
@@ -65,6 +65,9 @@ const updateUI = async () => {
 
 
 generateBtn.addEventListener('click', function(){
+  if(zipArea.value.length != 5){      // Alerts user if zipcode isn't 5 carachters long
+    alert('Zip code not valid, it should be 5 caracthers long')
+  }
     retrieveData(baseUrl+zipArea.value+','+countryCodeArea.value+apiKey)  // Fetches data from API
     .then(function(allData){
       postData('/add', {                          // Posts data fecthed from API to the server
